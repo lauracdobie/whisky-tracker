@@ -15,8 +15,15 @@ public class WhiskyController {
     @Autowired
     WhiskyRepository whiskyRepository;
 
+    // GET /whiskies
+    //GET /whiskies?year=2018
     @GetMapping(value="/whiskies")
-    public ResponseEntity<List<Whisky>> getAllWhiskies() {
+    public ResponseEntity<List<Whisky>> getAllWhiskies(
+            @RequestParam(name="year", required = false) Integer year
+    ) {
+        if(year != null){
+            return new ResponseEntity<>(whiskyRepository.findByYear(year), HttpStatus.OK);
+        }
         return new ResponseEntity<>(whiskyRepository.findAll(), HttpStatus.OK);
     }
 
