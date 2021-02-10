@@ -27,15 +27,15 @@ public class WhiskyController {
         if(year != null){
             return new ResponseEntity<>(whiskyRepository.findByYear(year), HttpStatus.OK);
         }
-        if (distillery != null) {
+        if (distillery != null && age == null) {
             return new ResponseEntity<>(whiskyRepository.findWhiskiesByDistilleryName(distillery), HttpStatus.OK);
         }
-        if(age != null){
+        if(age != null && distillery == null){
             return new ResponseEntity<>(whiskyRepository.findByAge(age), HttpStatus.OK);
         }
-//        if(distillery != null && age != null){
-//            return new ResponseEntity<>(whiskyRepository.findByDistilleryAndAge(distillery, age), HttpStatus.OK);
-//        }
+        if(distillery != null && age != null){
+            return new ResponseEntity<>(whiskyRepository.findWhiskiesByAgeAndDistilleryName(age, distillery), HttpStatus.OK);
+        }
         return new ResponseEntity<>(whiskyRepository.findAll(), HttpStatus.OK);
     }
 
