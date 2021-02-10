@@ -23,7 +23,7 @@ public class DistilleryController {
             @RequestParam(name="region") String region
     ) {
         if (region != null) {
-            return new ResponseEntity<>(distilleryRepository.findByRegion(region), HttpStatus.OK);
+            return new ResponseEntity<>(distilleryRepository.findByRegionIgnoreCase(region), HttpStatus.OK);
         }
         return new ResponseEntity<>(distilleryRepository.findAll(), HttpStatus.OK);
     }

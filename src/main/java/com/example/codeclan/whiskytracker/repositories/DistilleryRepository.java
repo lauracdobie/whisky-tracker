@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface DistilleryRepository extends JpaRepository<Distillery, Long> {
-    List<Distillery> findByRegion(String region);
+    List<Distillery> findByRegionIgnoreCase(String region);
 }
