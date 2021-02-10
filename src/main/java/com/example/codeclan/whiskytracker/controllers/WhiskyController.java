@@ -17,13 +17,25 @@ public class WhiskyController {
 
     // GET /whiskies
     //GET /whiskies?year=2018
+    // GET /whiskies?distillery=Lagavulin&age=16
     @GetMapping(value="/whiskies")
     public ResponseEntity<List<Whisky>> getAllWhiskies(
-            @RequestParam(name="year", required = false) Integer year
+            @RequestParam(name="year", required = false) Integer year,
+            @RequestParam(name="distillery", required = false) String distillery,
+            @RequestParam(name="age", required = false) Integer age
     ) {
         if(year != null){
             return new ResponseEntity<>(whiskyRepository.findByYear(year), HttpStatus.OK);
         }
+        if (distillery != null) {
+            return new ResponseEntity<>(whiskyRepository.findWhiskiesByDistilleryName(distillery), HttpStatus.OK);
+        }
+        if(age != null){
+            return new ResponseEntity<>(whiskyRepository.findByAge(age), HttpStatus.OK);
+        }
+//        if(distillery != null && age != null){
+//            return new ResponseEntity<>(whiskyRepository.findByDistilleryAndAge(distillery, age), HttpStatus.OK);
+//        }
         return new ResponseEntity<>(whiskyRepository.findAll(), HttpStatus.OK);
     }
 
